@@ -18,6 +18,20 @@ The goal of this project is to learn about cloud based internet of things platfo
 
 - I looked at the graphs on the ThingSpeak dashboard to see what the data looks like.
 
+## Results
+
+- The ESP32 worked well and it sent the battery levels to ThingSpeak.
+
+- The battery levels were 85% and 95%.
+
+- The ESP32 successfully sent these battery values to ThingSpeak.
+
+- ThingSpeak then stored the battery values. Showed them as a graph.
+
+- This is an example of how the ESP32 and ThingSpeak can be used for monitoring and visualization over the internet.
+
+- The ESP32 and ThingSpeak made it possible to see the battery levels, from anywhere.
+
 ## Learning Outcomes
 
 - I learned what internet of things cloud platforms are and how they work.
