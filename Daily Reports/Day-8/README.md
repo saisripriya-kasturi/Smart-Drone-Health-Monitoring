@@ -8,9 +8,10 @@ Integration of GPS location tracking for the drone health monitoring application
 - Reading and parsing GPS sentences to extract latitude and longitude coordinates.
 - Conversion of GPS coordinates to useful location information.
 - Integration of the location GPS parameters along with the sensor monitoring values.
-- Updating of the ThingSpeak channel to monitor and display battery percentage, temperature, altitude, motor on/off state, latitude, and longitude.
+- Updated the ThingSpeak channel to upload battery, temperature, altitude, motor status, latitude, and longitude data.
+- Successful data transmission and cloud visualization.
 
 ## Outcomes
-- Successful addition of location-based monitoring for the drone monitoring system.
-- Enhancement of the IoT system by integrating location and sensor monitoring.
+- Successfully added GPS-based location monitoring functionality to the drone health monitoring system.
+- Improved the IoT system by integrating location and sensor monitoring.
 - Acquired knowledge of working with GPS data and ThingSpeak platform.
