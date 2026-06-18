@@ -1,4 +1,4 @@
-# Day 8 - Integrate GPS
+# Day 8 - GPS Integration
 
 ## Objectives
 Integration of GPS location tracking for the drone health monitoring application and uploading the location data on the cloud dashboard.
