@@ -8,7 +8,6 @@ To deploy the Smart Drone Health Monitoring Dashboard and integrate it with Thin
 - Retrieved real-time drone monitoring data from ThingSpeak fields.
 - Displayed battery, temperature, altitude, motor status, GPS coordinates, and flight duration values on the dashboard.
 - Implemented login authentication functionality for secure dashboard access.
-- Deployed the dashboard application using Netlify cloud hosting.
 - Verified successful communication between the cloud platform and dashboard.
 
 ## Cloud Data Structure
