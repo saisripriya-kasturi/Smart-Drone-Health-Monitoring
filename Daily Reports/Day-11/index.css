@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme {
+  --color-slate-950: #0B0E14;
+  --color-slate-900: #161B22;
+  --color-slate-850: #202630;
+  --color-slate-800: #30363D;
+  --color-slate-400: #7D8590;
+  --color-cyan-400: #00F0FF;
+  --color-cyan-500: #00E0F0;
+  --color-cyan-950: #0B1922;
+  --color-teal-400: #14b8a6;
+  --color-rose-400: #FF4444;
+}
+
+body {
+  background-color: #0B0E14;
+  background-image: radial-gradient(circle at 50% 50%, #161B22 0%, #0B0E14 100%);
+}

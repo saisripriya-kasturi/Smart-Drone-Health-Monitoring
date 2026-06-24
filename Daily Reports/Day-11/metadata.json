@@ -1,0 +1,6 @@
+{
+  "name": "Smart Drone Health Monitoring Dashboard",
+  "description": "A responsive and modern login authentication system and telemetry dashboard for monitored smart drone hardware, battery health, and sensor logs.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

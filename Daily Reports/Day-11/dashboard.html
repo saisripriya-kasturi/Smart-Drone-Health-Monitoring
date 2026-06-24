@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aero-Guard Telemetry Matrix Dashboard</title>
+    <!-- Link external stylesheets -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard-page">
+    <div class="grid-overlay"></div>
+
+    <div class="dashboard-container relative-z">
+        <!-- TOP NAVIGATION CONTROL HUD -->
+        <header class="hud-nav animate-fade-in">
+            <div class="brand">
+                <div class="brand-badge-circle">
+                    <svg class="icon-spin text-cyan" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="m16.2 7.8-8.4 8.4"></path><path d="m16.2 16.2-8.4-8.4"></path></svg>
+                </div>
+                <div>
+                    <div class="flex-row items-center gap-10">
+                        <h2>AERO-GUARD X4</h2>
+                        <span class="status-pill inline-green pulse-circle animate-pulse" id="livePill">LIVE TELEMETRY</span>
+                    </div>
+                    <p class="nav-sub">SECURE MATRIX LINK: <span id="operatorUserField">admin</span>@drone.local</p>
+                </div>
+            </div>
+
+            <!-- Top Controls HUD metrics -->
+            <div class="header-hud-metrics">
+                <div class="hud-clock font-mono">
+                    <span class="amber-glow-dot"></span>
+                    <span>UTC <strong id="liveClock">00:00:00</strong></span>
+                </div>
+
+                <div class="system-status-indicator status-nominal" id="systemStatusLabel">
+                    <svg class="health-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+                    <span id="systStateText">SYS: NOMINAL</span>
+                </div>
+
+                <button type="button" id="btnDisconnect" class="btn-disconnect">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg>
+                    <span>TERMINATE LINK</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- ACTIVE SYSTEM FAULT DISPLAY BANNER BANNER -->
+        <section id="alertBanner" class="alert-banner-hud hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="alert-icon bounce-alert"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            <div class="alert-message-content">
+                <strong class="alert-title font-mono">SYS ALARMS DETECTED</strong>
+                <span id="alertMessageText" class="alert-desc font-mono">WARNING: High winds shear registering at current altitudes.</span>
+            </div>
+        </section>
+
+        <!-- DASHBOARD GRID LAYOUT SPACE -->
+        <main class="dashboard-grid">
+            <!-- LEFT PANEL: HEALTH, TELEMETRY, & POWER ENGINE -->
+            <div class="col-span-8 space-y-20">
+                
+                <!-- ROW 1: PRIMARY SYSTEMS SENSOR MATRIX GAUGES -->
+                <div class="grid-3 gap-15">
+                    <!-- Gauge Card 1: Altitude -->
+                    <div class="stat-card">
+                        <div class="stat-glow cyan-glow"></div>
+                        <div class="stat-header font-mono">
+                            <span>ALTITUDE</span>
+                            <svg class="text-cyan text-sm-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 8 22 12 18 16"></polyline><line x1="2" y1="12" x2="22" y2="12"></line></svg>
+                        </div>
+                        <div class="stat-numeric mt-10">
+                            <span id="altValue">124.5</span>
+                            <span class="stat-unit text-cyan font-mono">M (AGL)</span>
+                        </div>
+                        <div class="progress-meter bg-black mt-15">
+                            <div class="progress-fill bg-cyan shadow-cyan" id="altFill" style="width: 41%;"></div>
+                        </div>
+                        <div class="stat-footer-sub font-mono flex-sb mt-10">
+                            <span>SEA REF BARO</span>
+                            <span>MAX CEILING: 300M</span>
+                        </div>
+                    </div>
+
+                    <!-- Gauge Card 2: Air Speed -->
+                    <div class="stat-card">
+                        <div class="stat-glow teal-glow"></div>
+                        <div class="stat-header font-mono">
+                            <span>AIRSPEED</span>
+                            <svg class="text-teal text-sm-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20"></path><path d="m17 5-5-3-5 3"></path><path d="m17 19-5 3-5-3"></path></svg>
+                        </div>
+                        <div class="stat-numeric mt-10">
+                            <span id="speedValue">42.8</span>
+                            <span class="stat-unit text-teal font-mono">KTAS</span>
+                        </div>
+                        <div class="progress-meter bg-black mt-15">
+                            <div class="progress-fill bg-teal shadow-teal" id="speedFill" style="width: 53%;"></div>
+                        </div>
+                        <div class="stat-footer-sub font-mono flex-sb mt-10">
+                            <span>DYNAMIC WEIGHT</span>
+                            <span>STALL THRESHOLD: 10KT</span>
+                        </div>
+                    </div>
+
+                    <!-- Gauge Card 3: Link Satellite Strength -->
+                    <div class="stat-card">
+                        <div class="stat-glow indigo-glow"></div>
+                        <div class="stat-header font-mono">
+                            <span>SIGNAL STRENGTH</span>
+                            <svg class="text-indigo text-sm-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"></path><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"></path><circle cx="12" cy="12" r="2"></circle><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"></path><path d="M19.1 4.9C23 8.8 23 15.2 19.1 19.1"></path></svg>
+                        </div>
+                        <div class="stat-numeric mt-10">
+                            <span id="signalValue">94</span>
+                            <span class="stat-unit text-indigo font-mono">DBM</span>
+                        </div>
+                        <div class="signal-visualizer-bars mt-15">
+                            <div class="sig-bar active" style="height: 30%"></div>
+                            <div class="sig-bar active" style="height: 55%"></div>
+                            <div class="sig-bar active" style="height: 80%"></div>
+                            <div class="sig-bar active" id="sigBar4" style="height: 100%"></div>
+                        </div>
+                        <div class="stat-footer-sub font-mono flex-sb mt-10">
+                            <span>PING: <strong id="pingText">8ms</strong></span>
+                            <span>SATELLITES: <strong id="satText">12</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DIAGNOSTIC GRAPHICS GRID (MOTORS AND CELL MATRIX) -->
+                <div class="grid-card">
+                    <div class="grid-card-nav tab-headers border-bottom flex-sb items-center pb-15 mb-20">
+                        <div>
+                            <h3 class="flex-row items-center gap-10">
+                                <svg class="text-cyan text-sm-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
+                                ROTORS & SYSTEM HARNESS
+                            </h3>
+                            <p class="tab-sub">Real-time individual drone brushless motor performance load</p>
+                        </div>
+                        <div class="tab-button-group border rounded">
+                            <button type="button" id="tabMotorsBtn" class="tab-btn active">Motors</button>
+                            <button type="button" id="tabBatteryBtn" class="tab-btn">Battery Cells</button>
+                        </div>
+                    </div>
+
+                    <!-- MOTORS DIAGNOSTICS VIEW PANEL (ACTIVE BY DEFAULT) -->
+                    <div id="motorsHealthView" class="tab-content-panel grid-2 gap-25">
+                        <div class="rotor-row-element">
+                            <div class="flex-sb text-xs-font mb-5">
+                                <span class="label-muted">Rotor 1 (Front Right)</span>
+                                <span class="v-highlight text-cyan" id="r1Val">8,250 RPM</span>
+                            </div>
+                            <div class="progress-meter fill-dark-slate pt-5">
+                                <div class="progress-fill bg-cyan animate-transition" id="r1Fill" style="width: 82.5%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="rotor-row-element">
+                            <div class="flex-sb text-xs-font mb-5">
+                                <span class="label-muted">Rotor 2 (Front Left)</span>
+                                <span class="v-highlight text-cyan" id="r2Val">8,220 RPM</span>
+                            </div>
+                            <div class="progress-meter fill-dark-slate pt-5">
+                                <div class="progress-fill bg-cyan animate-transition" id="r2Fill" style="width: 82.2%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="rotor-row-element">
+                            <div class="flex-sb text-xs-font mb-5">
+                                <span class="label-muted">Rotor 3 (Rear Left)</span>
+                                <span class="v-highlight text-teal" id="r3Val">8,290 RPM</span>
+                            </div>
+                            <div class="progress-meter fill-dark-slate pt-5">
+                                <div class="progress-fill bg-teal animate-transition" id="r3Fill" style="width: 82.9%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="rotor-row-element">
+                            <div class="flex-sb text-xs-font mb-5">
+                                <span class="label-muted">Rotor 4 (Rear Right)</span>
+                                <span class="v-highlight text-teal" id="r4Val">8,240 RPM</span>
+                            </div>
+                            <div class="progress-meter fill-dark-slate pt-5">
+                                <div class="progress-fill bg-teal animate-transition" id="r4Fill" style="width: 82.4%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BATTERY CELLS SUBTAB PANEL (CLOSED BY DEFAULT) -->
+                    <div id="batteryHealthView" class="tab-content-panel hidden">
+                        <div class="grid-3 gap-15 mb-20 text-center font-mono">
+                            <div class="diagnostic-pill">
+                                <span class="sub-small block text-slate font-bold">BATTERY TEMP</span>
+                                <strong class="text-white title-medium" id="batTemp">34.2 °C</strong>
+                            </div>
+                            <div class="diagnostic-pill">
+                                <span class="sub-small block text-slate font-bold">PACK VOLTAGE</span>
+                                <strong class="text-white title-medium" id="batVolt">16.70 V</strong>
+                            </div>
+                            <div class="diagnostic-pill">
+                                <span class="sub-small block text-slate font-bold">CURRENT LOAD</span>
+                                <strong class="text-green title-medium" id="batAmp">-4.2 A</strong>
+                            </div>
+                        </div>
+
+                        <div class="cells-matrix-hud font-mono">
+                            <span class="label-sec uppercase text-xs-font font-bold">CELL VOLTAGE RECOGNITION MATRIX</span>
+                            <div class="grid-4 gap-10 mt-10">
+                                <div class="cell-unit py-10 rounded">
+                                    <span class="cell-label block text-muted pb-5">CELL 1</span>
+                                    <strong class="cell-value text-white text-md-font">4.18V</strong>
+                                </div>
+                                <div class="cell-unit py-10 rounded">
+                                    <span class="cell-label block text-muted pb-5">CELL 2</span>
+                                    <strong class="cell-value text-white text-md-font">4.17V</strong>
+                                </div>
+                                <div class="cell-unit py-10 rounded">
+                                    <span class="cell-label block text-muted pb-5">CELL 3</span>
+                                    <strong class="cell-value text-white text-md-font">4.19V</strong>
+                                </div>
+                                <div class="cell-unit py-10 rounded">
+                                    <span class="cell-label block text-muted pb-5">CELL 4</span>
+                                    <strong class="cell-value text-white text-md-font">4.18V</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DOWNWARDS CONTROL ACTION HUB PANEL - HAZARDS SIMULATION SYSTEM -->
+                <div class="grid-card">
+                    <div class="grid-card-nav pb-10">
+                        <h3 class="flex-row items-center gap-10">
+                            <svg class="text-amber text-sm-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.886H3.82l4.91 3.568L6.817 18.34 12 14.772l5.183 3.568-1.913-5.886 4.91-3.568h-6.268L12 3z"></path></svg>
+                            INTERNSHIP DEMONSTRATION ENGINE: TRIGGER HW ALARMS
+                        </h3>
+                        <p class="tab-sub">Instantly simulate structural alarms or restore stable telemetry conditions during your assessment</p>
+                    </div>
+
+                    <div class="grid-4 gap-10 mt-20">
+                        <button type="button" id="btnSimWind" class="btn-terminal-action border-rose bg-rose-trans">
+                            🍃 Sim Wind Gusts
+                        </button>
+                        <button type="button" id="btnSimLowBat" class="btn-terminal-action border-amber bg-amber-trans">
+                            ⚠️ Low Battery Fail
+                        </button>
+                        <button type="button" id="btnSimOverheat" class="btn-terminal-action border-orange bg-orange-trans">
+                            🔥 Thermals Alert
+                        </button>
+                        <button type="button" id="btnSimNominal" class="btn-terminal-action border-green bg-green-trans">
+                            ✅ Safe Reset NOMINAL
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT PANEL: NAVIGATION radar map & Handshake activity terminals (4/12 cols) -->
+            <div class="col-span-4 space-y-20">
+                
+                <!-- GEOFENCE RADAR HUD MAP CARD -->
+                <div class="grid-card flex-col">
+                    <h3 class="flex-row items-center gap-10 border-bottom pb-15 mb-15">
+                        <svg class="text-cyan text-sm-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        GEOFENCE & POS GPS HUD
+                    </h3>
+
+                    <div class="gps-coords-view font-mono text-xs-font px-10 py-10 mb-15 rounded bg-black">
+                        <div class="flex-sb border-bottom-sub pb-5 mb-5 select-text">
+                            <span class="label-muted text-slate">LAT</span>
+                            <span id="latCoords" class="text-gray flex-grow text-right">37.774900° N</span>
+                        </div>
+                        <div class="flex-sb select-text">
+                            <span class="label-muted text-slate">LNG</span>
+                            <span id="lngCoords" class="text-gray flex-grow text-right">-122.419400° W</span>
+                        </div>
+                    </div>
+
+                    <!-- Visual radar stage container -->
+                    <div class="radar-container bg-black rounded relative h-150-px overflow-hidden">
+                        <div class="radar-grid-bg blur-micro"></div>
+                        
+                        <!-- Concentric circles -->
+                        <div class="radar-circle-md border-cyan"></div>
+                        <div class="radar-circle-sm border-cyan-dim"></div>
+                        <div class="radar-circle-xs border-cyan-dim"></div>
+
+                        <!-- Sweep radial line -->
+                        <div class="radar-blade-radial" id="radarSweep"></div>
+
+                        <!-- Quad Target Dot flashing -->
+                        <div class="target-node-block" style="left: 56%; top: 38%"><span class="ping-circle border-cyan"></span><span class="target-center-dot bg-cyan"></span><span class="node-label-txt font-mono text-cyan block pt-5">DRN-GUARD4</span></div>
+
+                        <span class="radar-corner-indicator font-mono mt-5">BASE: GEOTRACKER ALPHA</span>
+                    </div>
+                </div>
+
+                <!-- LOG HANDSHAKE ACTIVITY FILE LOGS (Terminal Output style) -->
+                <div class="grid-card flex-col flex-grow">
+                    <div class="border-bottom flex-sb items-center pb-15 mb-15">
+                        <h3 class="flex-row items-center gap-10">
+                            <svg class="text-cyan text-sm-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 16 17 20 11"></polyline><rect x="2" y="3" width="20" height="18" rx="2" ry="2"></rect></svg>
+                            SECURE TELEMETRY LOGGER
+                        </h3>
+                        <span class="status-box-label font-mono uppercase bg-black px-10 rounded font-bold">Active socket</span>
+                    </div>
+
+                    <!-- Scroll logging viewport container -->
+                    <div class="scrolling-terminal font-mono" id="scrollingLogsSection">
+                        <!-- Instantiated standard logs from JS -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Integrate script logic -->
+    <script src="script.js"></script>
+</body>
+</html>
