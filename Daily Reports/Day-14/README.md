@@ -1,20 +1,26 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# Day 14 - Final Project Documentation and Submission Preparation
 
-# Run and deploy your AI Studio app
+## Objective
 
-This contains everything you need to run your app locally.
+To finalize the Smart Drone Health Monitoring System by completing project documentation, preparing final presentation materials, and organizing deployment details.
 
-View your app in AI Studio: https://ai.studio/apps/ec346903-4455-4b51-b973-694b0a1b199f
+## Work Done
 
-## Run Locally
+- Completed final project documentation including system overview, objectives, architecture, software design, testing results, challenges, and future enhancements.
+- Prepared the final project presentation for demonstration and submission.
+- Created system architecture documentation showing the complete data flow of the monitoring system.
+- Added dashboard deployment details and public access information.
+- Organized all final project files in the GitHub repository.
 
-**Prerequisites:**  Node.js
+## Final Deliverables
 
+- Project Documentation
+- Final Presentation
+- System Architecture Diagram
+- Dashboard Deployment Link
+- Source Code
+- Telemetry Data Export File
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Outcome
+
+Successfully completed the final preparation of the Smart Drone Health Monitoring System. The project is ready for final demonstration and submission.
