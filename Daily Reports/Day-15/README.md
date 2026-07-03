@@ -1,20 +1,27 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# Day 15 - AI Integration and Dashboard Enhancement
 
-# Run and deploy your AI Studio app
+## Objective
 
-This contains everything you need to run your app locally.
+To enhance the Smart Drone Health Monitoring Dashboard by integrating AI-inspired monitoring features and improving the overall user experience.
 
-View your app in AI Studio: https://ai.studio/apps/ec346903-4455-4b51-b973-694b0a1b199f
+## Work Done
 
-## Run Locally
+- Enhanced the AERO-GUARD dashboard with AI-inspired monitoring features.
+- Added Battery Health status based on battery percentage.
+- Added Estimated Remaining Flight Time prediction.
+- Added Flight Mode detection based on drone altitude.
+- Added AI Recommendation to assist users with drone operation.
+- Updated the overheating alert threshold from 50°C to 70°C.
+- Improved dashboard analytics while maintaining the existing user interface and functionality.
 
-**Prerequisites:**  Node.js
+## Technologies Used
 
+- HTML
+- CSS
+- JavaScript
+- ThingSpeak Cloud
+- ESP32 (Wokwi Simulation)
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Outcome
+
+Successfully enhanced the Smart Drone Health Monitoring Dashboard with intelligent monitoring features and improved alert logic. The dashboard now provides more meaningful insights into drone health while maintaining real-time telemetry visualization.
